@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,43 +42,63 @@ public class DBManager {
 	static final String PASS = "password";
 
 //	private DBManager() {}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getJSON")
 	public String getJSON() {
 		return "{\"result\": \"test\"}";
 	}
-	
+
 	@POST
 	@Path("/createUser")
-	public void createUser(@FormParam("newUsername") String username, @FormParam("newPassword") String password,
+	public Response createUser(@FormParam("newUsername") String username, @FormParam("newPassword") String password,
 			@FormParam("newHouseNumber") String houseNumber, @FormParam("newPostCode") String postCode,
-			@FormParam("newEmail") String email, @FormParam("newContactNumber") long contactNumber,
-			@FormParam("newFirstName") String firstName, @FormParam("newLastName") String lastName,
-			@FormParam("newDOB") Date dob) throws SQLException {
-		User user = new User(username, password,
-				new Address(houseNumber, new PostCode(postCode, houseNumber, houseNumber, houseNumber)), email,
-				contactNumber, firstName, lastName, dob);
-		String sql = "INSERT INTO `user`"
-				+ "(`Username`,`Password`,`House Name/Number`,`Postcode`,`Email_Address`,`Contact_Number`,`First_Name`,`Last_Name`,`Date_Of_Birth`)"
-				+ "?,?,?,?,?,?,?,?,?);";
+			@FormParam("newStreet") String street, @FormParam("newCity") String city,
+			@FormParam("newCountry") String country, @FormParam("newEmail") String email,
+			@FormParam("newContactNumber") long contactNumber, @FormParam("newFirstName") String firstName,
+			@FormParam("newLastName") String lastName, @FormParam("newDOB") String dob) throws SQLException {
+
+		String sql = "INSERT INTO `firstdraft`.`postcode` (`Postcode`, `Street`, `City`, `Country`) VALUES (?,?,?,?);";
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
+				stmt.setString(1, postCode);
+				stmt.setString(2, street);
+				stmt.setString(3, city);
+				stmt.setString(4, country);
+				stmt.execute();
+			} catch (Exception e) {
+//				return Response.status(Status.FORBIDDEN).build();
+			}
+			sql = "INSERT INTO `firstdraft`.`address` (`House_Name/Number`, `Postcode`) VALUES (?,?);";
+			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
+				stmt.setString(1, houseNumber);
+				stmt.setString(2, postCode);
+				stmt.execute();
+			} catch (Exception e) {
+//				return Response.status(Status.FORBIDDEN).build();
+			}
+			sql = "INSERT INTO `user`"
+					+ "(`Username`,`Password`,`House Name/Number`,`Postcode`,`Email_Address`,`Contact_Number`,`First_Name`,`Last_Name`,`Date_Of_Birth`)"
+					+ "values (?,?,?,?,?,?,?,?,?);";
+			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 				conn.setAutoCommit(false);
-				stmt.setString(1, user.getUsername());
-				stmt.setString(2, user.getPassword());
-				stmt.setString(3, user.getAddress().getHouseName());
-				stmt.setString(4, user.getAddress().getPostcode().getPostCode());
-				stmt.setString(5, user.getEmail());
-				stmt.setLong(6, user.getContactNumber());
-				stmt.setString(7, user.getFirstName());
-				stmt.setString(8, user.getLastName());
-				stmt.setDate(9, user.getBirthDate());
+				stmt.setString(1, username);
+				stmt.setString(2, password);
+				stmt.setString(3, houseNumber);
+				stmt.setString(4, postCode);
+				stmt.setString(5, email);
+				stmt.setLong(6, contactNumber);
+				stmt.setString(7, firstName);
+				stmt.setString(8, lastName);
+				stmt.setDate(9, new Date(new SimpleDateFormat("yyyy-mm-dd").parse(dob).getTime()));
 				stmt.execute();
 				conn.commit();
+			} catch (Exception e) {
+				return Response.status(Status.FORBIDDEN).build();
 			}
 		}
+		return Response.ok().build();
 	}
 
 	@POST
