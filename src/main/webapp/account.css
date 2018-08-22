@@ -1,0 +1,13 @@
+#loginSignUp {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	height: 25%;
+	margin-top: 10%;
+	text-align: center;
+}
+
+#loginSignUp>form {
+	display: grid;
+	grid-row-gap: 10px;
+}
