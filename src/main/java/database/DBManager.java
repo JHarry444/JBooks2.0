@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -44,6 +46,35 @@ public class DBManager {
 
 //	private DBManager() {}
 
+	@GET
+	@Path("/getBooks/{title}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findBook(@PathParam("title") String title) {
+		Set<Book> book = new HashSet<>();
+		String sql = "SELECT * FROM book WHERE `Title` = '" + title + "';";
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);) {
+			while (rs.next()) {
+				book.add(new Book(rs.getLong("ISBN"),
+						rs.getString("Title"),
+						rs.getString("Author"),
+						rs.getString("Synopsis"),
+						null,
+						rs.getBoolean("Ebook"),
+						rs.getInt("Quantity"),
+						rs.getDouble("Price"),
+						Genre.SCI_FI/*valueOf(rs.getString("Genre"))*/,
+						rs.getString("Edition"), Fictional.valueOf(rs.getString("Fiction/Non-fiction")), null));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Gson().toJson(book);
+	}
+	
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getJSON")
