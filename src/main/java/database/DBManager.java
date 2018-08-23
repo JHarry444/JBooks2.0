@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +15,13 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import com.google.gson.Gson;
 
 import basket.BasketItem;
 import books.Book;
@@ -37,7 +38,7 @@ import users.User;
 public class DBManager {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/firstDraft?serverTimezone=UTC";
+	static final String DB_URL = "jdbc:mysql://localhost/JBooks?serverTimezone=UTC";
 	static final String USER = "root";
 	static final String PASS = "password";
 
@@ -49,6 +50,35 @@ public class DBManager {
 	public String getJSON() {
 		return "{\"result\": \"test\"}";
 	}
+	
+	@GET
+	@Path("/getBook/{isbn}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getBook(@PathParam("isbn") String isbn) {
+		Book book = new Book();
+		String sql = "SELECT * FROM book WHERE ISBN =" + isbn + ";";
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);) {
+			while (rs.next()) {
+				book = new Book(rs.getLong("ISBN"),
+						rs.getString("Title"),
+						rs.getString("Author"),
+						rs.getString("Synopsis"),
+						null,
+						rs.getBoolean("Ebook"),
+						rs.getInt("Quantity"),
+						rs.getDouble("Price"),
+						Genre.SCI_FI/*valueOf(rs.getString("Genre"))*/,
+						rs.getString("Edition"), Fictional.valueOf(rs.getString("Fiction/Non-fiction")), null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Gson().toJson(book);
+	}
+	
+	
 
 	@POST
 	@Path("/createUser")
@@ -59,7 +89,7 @@ public class DBManager {
 			@FormParam("newContactNumber") long contactNumber, @FormParam("newFirstName") String firstName,
 			@FormParam("newLastName") String lastName, @FormParam("newDOB") String dob) throws SQLException {
 
-		String sql = "INSERT INTO `firstdraft`.`postcode` (`Postcode`, `Street`, `City`, `Country`) VALUES (?,?,?,?);";
+		String sql = "INSERT INTO `JBooks`.`postcode` (`Postcode`, `Street`, `City`, `Country`) VALUES (?,?,?,?);";
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 				stmt.setString(1, postCode);
@@ -70,7 +100,7 @@ public class DBManager {
 			} catch (Exception e) {
 //				return Response.status(Status.FORBIDDEN).build();
 			}
-			sql = "INSERT INTO `firstdraft`.`address` (`House_Name/Number`, `Postcode`) VALUES (?,?);";
+			sql = "INSERT INTO `JBooks`.`address` (`House_Name/Number`, `Postcode`) VALUES (?,?);";
 			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 				stmt.setString(1, houseNumber);
 				stmt.setString(2, postCode);
@@ -233,7 +263,7 @@ public class DBManager {
 			for (Book book : books) {
 				try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 					conn.setAutoCommit(false);
-					stmt.setInt(1, book.getISBN());
+					stmt.setLong(1, book.getISBN());
 					stmt.setString(2, book.getTitle());
 					stmt.setString(3, book.getAuthor());
 					stmt.setString(4, book.getSynopsis());
@@ -426,7 +456,7 @@ public class DBManager {
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 				conn.setAutoCommit(false);
-				stmt.setInt(1, book.getISBN());
+				stmt.setLong(1, book.getISBN());
 				stmt.setString(2, book.getTitle());
 				stmt.setString(3, book.getAuthor());
 				stmt.setString(4, book.getSynopsis());

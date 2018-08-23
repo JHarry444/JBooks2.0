@@ -7,7 +7,7 @@ public class Book {
 
 	public static class BookBuilder {
 
-		private int ISBN;
+		private long ISBN;
 		private String title;
 		private String author;
 		private String synopsis = "";
@@ -86,7 +86,7 @@ public class Book {
 		}
 	}
 
-	private int ISBN;
+	private long ISBN;
 	private String title;
 	private String author;
 	private String synopsis;
@@ -101,7 +101,7 @@ public class Book {
 	
 	public Book() {}
 
-	public Book(int iSBN, String title, String author, String synopsis, Date releaseDate, boolean eBook,
+	public Book(long iSBN, String title, String author, String synopsis, Date releaseDate, boolean eBook,
 			int quantity, double price, Genre genre, String edition, Fictional fictional, List<Review> reviews) {
 		ISBN = iSBN;
 		this.title = title;
@@ -133,7 +133,7 @@ public class Book {
 		return genre;
 	}
 
-	public int getISBN() {
+	public long getISBN() {
 		return ISBN;
 	}
 

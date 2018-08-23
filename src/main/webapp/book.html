@@ -1,0 +1,26 @@
+<html>
+<link rel="stylesheet" type="text/css" href="index.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="index.js"></script>
+<script src="book.js"></script>
+<body>
+	<div id="header">
+		<a id="user" href="signIn.html">Sign-in/Signup</a>
+		<h1>
+			<a href="index.html">JBOOKS</a>
+		</h1>
+		<input type="text" id="search" placeholder="Enter search here">
+	</div>
+	<div id="book" style="text-align: center; margin-top: 10%;">
+		<div id="bookCover" style="display: inline-block; width: 15%; height: 40%;margin-right: 50px; ">
+			<img id="coverIMG" src="" style="height: 100%;width: 100%;vertical-align: bottom;">
+		</div>
+		<div id="bookDetails" style="display: inline-block;vertical-align: top;text-align: left;">
+			<h1 id="title"></h1>
+			<h2 id="author"></h2>
+			<p id="synopsis" style="max-width: 400px;"></p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">initHeader(); initBook();</script>
+</html>
