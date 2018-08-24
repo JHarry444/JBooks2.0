@@ -94,7 +94,7 @@ ENGINE = InnoDB;
 -- Table `JBooks`.`Book`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `JBooks`.`Book` (
-  `ISBN` BIGINT(13) NOT NULL,
+  `ISBN` CHAR(13) NOT NULL,
   `Title` VARCHAR(45) NOT NULL,
   `Author` VARCHAR(45) NOT NULL,
   `Synopsis` TEXT NOT NULL,
@@ -238,3 +238,213 @@ INSERT INTO `JBooks`.`Book_Review` (`Review_ID`, `ISBN`, `Username`, `Review`, `
 INSERT INTO `JBooks`.`Book_Review` (`Review_ID`, `ISBN`, `Username`, `Review`, `Rating`, `Time`) VALUES (3, 3, "UserThree", "ThreeThreeThreeThree", 1, '2018/06/25');
 INSERT INTO `JBooks`.`Book_Review` (`Review_ID`, `ISBN`, `Username`, `Review`, `Rating`, `Time`) VALUES (4, 4, "UserFour", "FourFourFourFour", 1, '2018/03/17');
 INSERT INTO `JBooks`.`Book_Review` (`Review_ID`, `ISBN`, `Username`, `Review`, `Rating`, `Time`) VALUES (5, 5, "UserFive", "FiveFiveFiveFive", 1, '2018/01/24');
+
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9780451463173', 'Changes', 'Jim Butcher', 'Meet Harry Dresden, Chicago\'s first (and only) Wizard P.I. Turns out the \'everyday\' world is full of strange and magical things - and most of them don\'t play well with humans. That\'s where Harry comes in.', '2011-03-03', '0', '44', '10.24', 'SCI_FI', 'Paperback', 'FICTION');
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9780451457813',
+'Storm Front',
+'Jim Butcher',
+'Harry\'s business as a private investigator has been quiet lately - so when the police bring him in to consult on a grisly double murder committed with black magic, he\'s seeing dollar signs. But where there\'s black magic, there\'s a black mage behind it. And now that mage knows Harry\'s name. Magic - it can get a guy killed.',
+'2011/05/05',
+false,
+33,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('0451458125',
+'Fool Moon',
+'Jim Butcher',
+"Business has been slow lately for Harry Dresden. Okay, business has been dead. Not undead - just dead. You would think Chicago would have a little more action for the only professional wizard in the phone book. But lately, Harry hasn't been able to dredge up any kind of work - magical or mundane. But just when it looks like he can't afford his next meal, a murder comes along that requires his particular brand of supernatural expertise. A brutally mutilated corpse. Strange-looking paw prints. A full moon. Take three guesses. And the first two don't count . . . ",
+'2011/05/05',
+false,
+25,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9780451462756',
+'Summer Knight',
+'Jim Butcher',
+"Since his girlfriend left town to deal with her newly acquired taste for blood, Harry's been down and out. He can't pay his rent. He's alienating his friends. He can't recall his last shower. Then when things are at their worst, the Winter Queen of Faerie saunters in with an offer Harry can't refuse. All he has to do is find out who murdered the Summer Knight, the Summer Queen's right-hand man, and clear the Winter Queen's name. It seems simple, but Faerie politics seldom work out that way. Then Harry discovers the fate of the entire world rests on this case. So no pressure . . .",
+'2011/05/05',
+false,
+14,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9781841494005',
+'Grave Peril',
+'Jim Butcher',
+"All over town, ghosts are causing trouble - and not the door-slamming, boo-shouting variety. These ghosts are tormented, violent, and deadly. Someone is stirring them up to wreak havoc. But why? And why do so many of the victims have ties to Harry? If Harry doesn't figure it out soon, he might just wind up a ghost himself.",
+'2011/05/05',
+false,
+29,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9780451463357',
+'Blood Rites',
+'Jim Butcher',
+"Harry's had worse assignments than going undercover on the set of an adult film. Dodging flaming monkey poo, for instance. Or going toe-to-leaf with a plant monster. Still, there's something troubling about this case. The Producer believes he's afflicted by an entropy curse - but it's the women around him who are dying. And Harry only got involved as a favour to Thomas, his flirtatious self-absorbed vampire acquaintance. Thomas has a personal stake in the case Harry can't work out, until his investigation leads him straight to Thomas's oversexed relatives. Harry's about to discover the skeleton in Thomas's family closet: a revelation that will change Harry's life for ever.",
+'2011/05/05',
+false,
+14,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9781429514897',
+'Dead Beat',
+'Jim Butcher',
+"Although most people don't believe in magic, the Chicago P.D. has a Special Investigations department, headed by his good friend Karrin Murphy. They deal with the . . . stranger cases. It's down to Karrin that Harry sneaks into Graceland Cemetery to meet a vampire named Mavra. Mavra has evidence that would destroy Karrin's career, and her demands are simple. She wants the Word of Kemmler - and all the power that comes with it. But first, Harry's keen to know what he'd be handing over. Before long he's racing against time, and six necromancers, to get the Word. And to prevent a Halloween that would truly wake the dead.",
+'2011/05/05',
+false,
+8,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('0451460855',
+'Proven Guilty',
+'Jim Butcher',
+"Harry has no friends on the White Council of Wizards, who find him brash and undisciplined (and they may have a point). However, now vampire wars have thinned out the wizards a little, they need him. So before he can blink, he's assigned to investigate rumours of black magic. Harry's other problem is an old friend's daughter - all grown-up and in trouble already. Her boyfriend insists he's innocent of something resembling a crime straight out of a horror film. This first impression turns out to be . . . well, pretty accurate, as Harry discovers malevolent entities feeding on fear. All in a day's work for a wizard, his dog, and a talking skull named Bob.",
+'2011/05/05',
+false,
+8,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');
+INSERT INTO `jbooks`.`book`
+(`ISBN`,
+`Title`,
+`Author`,
+`Synopsis`,
+`Release Date`,
+`EBook`,
+`Quantity`,
+`Price`,
+`Genre`,
+`Edition`,
+`Fiction/Non-fiction`)
+VALUES
+('9780451462565',
+'Turn Coat',
+'Jim Butcher',
+"Harry has always tried to keep his nose clean where the White Council of Wizards is concerned, but past misdeeds haven't gone down well. Which places him in an awkward position. Morgan, formerly his chief persecutor on the Council, has been wrongly accused of treason. Facing the ultimate punishment, Morgan needs someone with a knack for backing the underdog, however much that someone isn't interested. Soon, Harry is working to clear the less-than-agreeable Morgan's name, hiding from the Council and bounty hunters alike and seeking the true turncoat. A single mistake may mean that heads - quite literally - could roll. And one of them might be his.",
+'2011/05/05',
+false,
+88,
+9.99,
+'SCI_FI',
+'Paperback',
+'FICTION');

@@ -51,7 +51,7 @@ public class DBManager {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String findBook(@PathParam("title") String title) {
 		Set<Book> book = new HashSet<>();
-		String sql = "SELECT * FROM book WHERE `Title` = '" + title + "';";
+		String sql = "SELECT * FROM book WHERE `Title` REGEXP '" + title + "';";
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {

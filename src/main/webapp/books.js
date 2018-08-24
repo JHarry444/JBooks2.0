@@ -9,10 +9,6 @@ function getBooks() {
 			element.setAttribute("src", `http://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`)
 			document.getElementsByTagName("body")[0].appendChild(element);
 		});
-//		$("#coverIMG").attr("src", "" + link.replace("ISBN", json.ISBN));
-//		$("#title").text(json.title);
-//		$("#author").text(json.author);
-//		$("#synopsis").text(json.synopsis);
 	});
 
 }
