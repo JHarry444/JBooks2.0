@@ -46,7 +46,6 @@ $("#create").submit(
 				data : serializedData
 			});
 			request.done(function(response, textStatus, jqXHR) {
-				console.log("Hooray, it worked!");
 				sessionStorage.setItem("userName", inputs[0].value);
 				document.location.href = "index.html"
 			});

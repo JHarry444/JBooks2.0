@@ -114,7 +114,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `JBooks`.`Order_Item` (
   `Order_ID` INT NOT NULL,
-  `Item` BIGINT(13) NOT NULL,
+  `Item` CHAR(13) NOT NULL,
   INDEX `fk_oder_has_item_idx` (`Order_ID` ASC),
   INDEX `fk_item_is_book_idx` (`Item` ASC),
   CONSTRAINT `fk_order_has_item`
@@ -135,7 +135,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `JBooks`.`Basket_Item` (
   `Username` VARCHAR(20) NOT NULL,
-  `ISBN` BIGINT(13) NOT NULL,
+  `ISBN` CHAR(13) NOT NULL,
   INDEX `fk_user_has_basket_idx` (`Username` ASC),
   INDEX `fk_book_is_in_basket_idx` (`ISBN` ASC),
   CONSTRAINT `fk_user_has_basket`
@@ -156,7 +156,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `JBooks`.`Book_Review` (
   `Review_ID` INT NOT NULL,
-  `ISBN` BIGINT(13) NOT NULL,
+  `ISBN` CHAR(13) NOT NULL,
   `Username` VARCHAR(20) NULL,
   `Review` TEXT NOT NULL,
   `Rating` INT NOT NULL,
