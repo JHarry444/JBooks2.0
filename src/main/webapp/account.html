@@ -1,0 +1,45 @@
+<html>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="account.css">
+<body>
+	<div id="header">
+		<a id="user" href="index.html" onclick="signOut();">Sign-out</a>
+		<h1>
+			<a href="index.html">JBOOKS</a>
+		</h1>
+		<input type="text" id="search" placeholder="Enter search here">
+	</div>
+	<div id="account">
+		<h2>User Details</h2>
+		<form id="create" action="main/db/editUser" method="post">
+			<label for="newUsername">Username</label>
+			<input type="text" id="newUsername" name="newUsername" disabled="disabled"> 
+			<label for="newHouseNumber">House Name/Number</label>
+			<input type="text" id="newHouseNumber" name="newHouseNumber">
+			<label for="newPostCode">Post Code</label>
+			<input type="text" id="newPostCode" name="newPostCode">
+			<label for="newStreet">Street Name</label>
+			<input type="text" id="newStreet" name="newStreet">
+			<label for="newCity">City</label>
+			<input type="text" id="newCity" name="newCity">
+			<label for="newCountry">Country</label>
+			<input type="text" id="newCountry" name="newCountry">
+			<label for="newEmail">Email</label>
+			<input type="email" id="newEmail" name="newEmail">
+			<label for="newContactNumber">Contact Number</label>
+			<input type="tel" id="newContactNumber" name="newContactNumber">
+			<label for="newFirstName">First Name</label>
+			<input type="text" id="newFirstName" name="newFirstName"> 
+			<label for="newLastName">Last Name</label>
+			<input type="text" id="newLastName" name="newLastName"> 
+			<label for="newDOB">Date of Birth</label>
+			<input type="text" id="newDOB" name="newDOB">  
+			<!-- <button>Edit User</button> -->
+		</form>
+	</div>
+</body>
+<script src="index.js"></script>
+<script src="account.js"></script>
+<script>getUser();initHeader();</script>
+</html>

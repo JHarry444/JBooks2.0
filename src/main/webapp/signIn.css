@@ -1,0 +1,19 @@
+#loginSignUp {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	height: 25%;
+	margin-top: 5%;
+	text-align: center;
+}
+
+#newUser, #existingUser {
+	display: inline-block;
+    width: 30%;
+    margin-right: 10px;
+}
+
+#loginSignUp form {
+	display: grid;
+	grid-row-gap: 10px;
+}

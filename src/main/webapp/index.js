@@ -5,8 +5,8 @@ var signedIn = sessionStorage.userName;
 var link = "http://covers.openlibrary.org/b/isbn/ISBN-L.jpg"
 
 function initHeader() {
-	if (signedIn) {
-		$("#user").attr("href", "account.html");
+	if (signedIn && $("#account").length === 0) {
+		$("#user").attr("href", `account.html?userName=${signedIn}`);
 		$("#user").text(signedIn);
 	}
 	document.getElementById("search").addEventListener("keyup",

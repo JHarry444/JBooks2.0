@@ -40,11 +40,35 @@ import users.User;
 public class DBManager {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/JBooks?serverTimezone=UTC";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/jbooks";
 	static final String USER = "root";
 	static final String PASS = "password";
 
 //	private DBManager() {}
+
+	@GET
+	@Path("/getUser/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getUser(@PathParam("userName") String userName) {
+		User user = null;
+		String sql = "SELECT * FROM `user` JOIN address ON"
+				+ " user.`House Name/Number` = address.`House_Name/Number` AND user.Postcode = address.Postcode" + ""
+				+ " JOIN postcode on address.Postcode = postcode.Postcode WHERE Username = '" + userName + "';";
+		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);) {
+			while (rs.next()) {
+				user = new User(rs.getString("Username"), "",
+						new Address(rs.getString("House_Name/Number"),
+								new PostCode("Postcode", "Street", "City", "Country")),
+						rs.getString("Email_Address"), rs.getInt("Contact_Number"), rs.getString("First_Name"),
+						rs.getString("Last_Name"), rs.getDate("Date_Of_Birth"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return new Gson().toJson(user);
+	}
 
 	@GET
 	@Path("/getBooks/{title}")
@@ -56,15 +80,9 @@ public class DBManager {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
-				book.add(new Book(rs.getLong("ISBN"),
-						rs.getString("Title"),
-						rs.getString("Author"),
-						rs.getString("Synopsis"),
-						null,
-						rs.getBoolean("Ebook"),
-						rs.getInt("Quantity"),
-						rs.getDouble("Price"),
-						Genre.SCI_FI/*valueOf(rs.getString("Genre"))*/,
+				book.add(new Book(rs.getLong("ISBN"), rs.getString("Title"), rs.getString("Author"),
+						rs.getString("Synopsis"), null, rs.getBoolean("Ebook"), rs.getInt("Quantity"),
+						rs.getDouble("Price"), Genre.SCI_FI/* valueOf(rs.getString("Genre")) */,
 						rs.getString("Edition"), Fictional.valueOf(rs.getString("Fiction/Non-fiction")), null));
 			}
 		} catch (Exception e) {
@@ -72,16 +90,14 @@ public class DBManager {
 		}
 		return new Gson().toJson(book);
 	}
-	
-	
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getJSON")
 	public String getJSON() {
 		return "{\"result\": \"test\"}";
 	}
-	
+
 	@GET
 	@Path("/getBook/{isbn}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -92,15 +108,9 @@ public class DBManager {
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
-				book = new Book(rs.getLong("ISBN"),
-						rs.getString("Title"),
-						rs.getString("Author"),
-						rs.getString("Synopsis"),
-						null,
-						rs.getBoolean("Ebook"),
-						rs.getInt("Quantity"),
-						rs.getDouble("Price"),
-						Genre.SCI_FI/*valueOf(rs.getString("Genre"))*/,
+				book = new Book(rs.getLong("ISBN"), rs.getString("Title"), rs.getString("Author"),
+						rs.getString("Synopsis"), null, rs.getBoolean("Ebook"), rs.getInt("Quantity"),
+						rs.getDouble("Price"), Genre.SCI_FI/* valueOf(rs.getString("Genre")) */,
 						rs.getString("Edition"), Fictional.valueOf(rs.getString("Fiction/Non-fiction")), null);
 			}
 		} catch (Exception e) {
@@ -108,8 +118,6 @@ public class DBManager {
 		}
 		return new Gson().toJson(book);
 	}
-	
-	
 
 	@POST
 	@Path("/createUser")

@@ -1,7 +1,7 @@
 <html>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="index.css">
-<link rel="stylesheet" type="text/css" href="account.css">
+<link rel="stylesheet" type="text/css" href="signIn.css">
 <body>
 	<div id="header">
 		<a></a>
@@ -11,6 +11,7 @@
 		<input type="text" id="search" placeholder="Enter search here">
 	</div>
 	<div id="loginSignUp">
+	<div id="newUSer">
 		<h2>New users</h2>
 		<form id="create" action="main/db/createUser" method="post">
 			<input type="text" id="newUsername" name="newUsername" placeholder="Username"> 
@@ -27,13 +28,16 @@
 			<input type="date" id="newDOB" name="newDOB" placeholder="Date Of Birth">  
 			<button>Create User</button>
 		</form>
+		</div>
+		<div id="existingUser">
 		<h2>Existing users</h2>
 		<form id="login" action="main/db/login" method="post">
 			<input type="text" id="existingUsername" name="existingUsername" placeholder="username">
 			<input type="password" id="existingPassword" name="existingPassword" placeholder="Password">
 			<button>Login</button>
 		</form>
+		</div>
 	</div>
 </body>
-<script src="account.js"></script>
+<script src="signIn.js"></script>
 </html>
