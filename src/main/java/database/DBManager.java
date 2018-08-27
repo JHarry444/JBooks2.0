@@ -23,6 +23,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.google.gson.Gson;
 
 import basket.BasketItem;
@@ -153,14 +155,14 @@ public class DBManager {
 			try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 				conn.setAutoCommit(false);
 				stmt.setString(1, username);
-				stmt.setString(2, password);
+				stmt.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
 				stmt.setString(3, houseNumber);
 				stmt.setString(4, postCode);
 				stmt.setString(5, email);
 				stmt.setLong(6, contactNumber);
 				stmt.setString(7, firstName);
 				stmt.setString(8, lastName);
-				stmt.setDate(9, new Date(new SimpleDateFormat("yyyy-mm-dd").parse(dob).getTime()));
+				stmt.setDate(9, new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dob).getTime()));
 				stmt.execute();
 				conn.commit();
 			} catch (Exception e) {
@@ -175,17 +177,17 @@ public class DBManager {
 	public Response login(@FormParam("existingUsername") String username,
 			@FormParam("existingPassword") String password) {
 		String sql = "SELECT password FROM `user` WHERE username = '" + username + "';";
-		String _password = "";
+		String dbPassword = "";
 		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				_password = rs.getString("password");
+				dbPassword = rs.getString("password");
 			}
 		} catch (SQLException e) {
 			Response.status(Status.FORBIDDEN).build();
 		}
-		return password.equals(_password) ? Response.ok().build() : Response.status(Status.UNAUTHORIZED).build();
+		return BCrypt.checkpw(password, dbPassword) ? Response.ok().build() : Response.status(Status.UNAUTHORIZED).build();
 	}
 
 	public static void deleteAddress(Address address) throws SQLException {

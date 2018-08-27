@@ -47,7 +47,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `JBooks`.`User` (
   `Username` VARCHAR(20) NOT NULL,
-  `Password` VARCHAR(29) NOT NULL,
+  `Password` VARCHAR(60) NOT NULL,
   `House Name/Number` VARCHAR(15) NOT NULL,
   `Postcode` VARCHAR(15) NOT NULL,
   `Email_Address` VARCHAR(45) NOT NULL,
