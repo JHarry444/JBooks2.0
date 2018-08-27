@@ -9,11 +9,17 @@
 
 #newUser, #existingUser {
 	display: inline-block;
-    width: 30%;
-    margin-right: 10px;
+	width: 30%;
+	margin-right: 10px;
 }
 
 #loginSignUp form {
 	display: grid;
 	grid-row-gap: 10px;
+}
+
+.error {
+	text-align: left;
+	color: red;
+	display: none;
 }

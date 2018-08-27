@@ -22,6 +22,7 @@ $("#login").submit(
 				document.location.href = "index.html"
 			});
 			request.fail(function(jqXHR, textStatus, errorThrown) {
+				$("#loginError").show();
 				console.error("The following error occurred: " + textStatus,
 						errorThrown);
 			});
@@ -50,6 +51,7 @@ $("#create").submit(
 				document.location.href = "index.html"
 			});
 			request.fail(function(jqXHR, textStatus, errorThrown) {
+				$("#createUserError").show();
 				console.error("The following error occurred: " + textStatus,
 						errorThrown);
 			});
