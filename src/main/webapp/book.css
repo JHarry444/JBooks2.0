@@ -1,0 +1,27 @@
+#book {
+	text-align: center;
+	margin-top: 10%;
+}
+
+#bookCover {
+	display: inline-block;
+	width: 15%;
+	height: 40%;
+	margin-right: 50px;
+}
+
+#coverIMG {
+	height: 110%;
+	width: 100%;
+	vertical-align: bottom;
+}
+
+#bookDetails {
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+}
+
+#synopsis {
+	max-width: 400px;
+}

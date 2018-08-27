@@ -1,5 +1,6 @@
 <html>
 <link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="book.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="index.js"></script>
 <script src="book.js"></script>
@@ -11,14 +12,16 @@
 		</h1>
 		<input type="text" id="search" placeholder="Enter search here">
 	</div>
-	<div id="book" style="text-align: center; margin-top: 10%;">
-		<div id="bookCover" style="display: inline-block; width: 15%; height: 40%;margin-right: 50px; ">
-			<img id="coverIMG" src="" style="height: 100%;width: 100%;vertical-align: bottom;">
+	<div id="book">
+		<div id="bookCover">
+			<img id="coverIMG" src="">
 		</div>
-		<div id="bookDetails" style="display: inline-block;vertical-align: top;text-align: left;">
+		<div id="bookDetails">
 			<h1 id="title"></h1>
 			<h2 id="author"></h2>
-			<p id="synopsis" style="max-width: 400px;"></p>
+			<p id="synopsis"></p>
+			<p id="releaseDate"></p>
+			<p id="price"></p>
 		</div>
 	</div>
 </body>

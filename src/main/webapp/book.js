@@ -8,6 +8,8 @@ function initBook() {
 		$("#title").text(json.title);
 		$("#author").text(json.author);
 		$("#synopsis").text(json.synopsis);
+		$("#releaseDate").text(json.releaseDate);
+		$("#price").text(json.price);
 	});
 
 }

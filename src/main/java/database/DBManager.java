@@ -81,8 +81,8 @@ public class DBManager {
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
 				book.add(new Book(rs.getLong("ISBN"), rs.getString("Title"), rs.getString("Author"),
-						rs.getString("Synopsis"), null, rs.getBoolean("Ebook"), rs.getInt("Quantity"),
-						rs.getDouble("Price"), Genre.SCI_FI/* valueOf(rs.getString("Genre")) */,
+						rs.getString("Synopsis"), rs.getDate("Release Date"), rs.getBoolean("Ebook"), rs.getInt("Quantity"),
+						rs.getDouble("Price"), Genre.valueOf(rs.getString("Genre")),
 						rs.getString("Edition"), Fictional.valueOf(rs.getString("Fiction/Non-fiction")), null));
 			}
 		} catch (Exception e) {
@@ -109,8 +109,8 @@ public class DBManager {
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
 				book = new Book(rs.getLong("ISBN"), rs.getString("Title"), rs.getString("Author"),
-						rs.getString("Synopsis"), null, rs.getBoolean("Ebook"), rs.getInt("Quantity"),
-						rs.getDouble("Price"), Genre.SCI_FI/* valueOf(rs.getString("Genre")) */,
+						rs.getString("Synopsis"), rs.getDate("Release Date"), rs.getBoolean("Ebook"), rs.getInt("Quantity"),
+						rs.getDouble("Price"), Genre.valueOf(rs.getString("Genre")),
 						rs.getString("Edition"), Fictional.valueOf(rs.getString("Fiction/Non-fiction")), null);
 			}
 		} catch (Exception e) {
